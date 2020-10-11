@@ -1,0 +1,201 @@
+﻿@model WebApp.Models.ImageInfo
+@{
+    ViewData["Title"] = "Image Analysis";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<h1>@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <img class="card-img-top" height="200" width="300" src="@Model.URL" alt="@Model.URL" style="width:100%">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Summary</div>
+            <div class="panel-body">
+                @if (Model.ImageAnalysis.Summary.Count > 0)
+                {
+                    foreach (DJBlogs.ComputerVision.Model.Summary summary in Model.ImageAnalysis.Summary)
+                    {
+                        <div class="col-md-12">
+                            <b>@summary.Name</b> with confidence @Math.Round(summary.Confidence * 100, 3) %
+                        </div>
+                    }
+                }
+                else
+                {
+                    <span>No summary content found </span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Categories</div>
+            <div class="panel-body">
+                @if (Model.ImageAnalysis.Categories.Count > 0)
+                {
+                    foreach (DJBlogs.ComputerVision.Model.Category category in Model.ImageAnalysis.Categories)
+                    {
+                        <div class="col-md-12">
+                            <b>@category.Name </b> with confidence @Math.Round(category.Confidence * 100, 3) %
+                        </div>
+                    }
+                }
+                else
+                {
+                    <span>No category found im image </span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Brands</div>
+            <div class="panel-body">
+                @if (Model.ImageAnalysis.Brands.Count > 0)
+                {
+                    foreach (DJBlogs.ComputerVision.Model.Brand brand in Model.ImageAnalysis.Brands)
+                    {
+                        <div class="col-md-12">Logo of <b> @brand.Name </b> with confidence @Math.Round(brand.Confidence * 100, 3) % at location(@brand.LocationX1, @brand.LocationX2, @brand.LocationY1, @brand.LocationY2)</div>
+                    }
+                }
+                else
+                {
+                    <span>No brand logo found in image </span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Celebrities</div>
+            <div class="panel-body">
+                @if (Model.ImageAnalysis.Celebrities.Count > 0)
+                {
+                    foreach (DJBlogs.ComputerVision.Model.Celebrity celebrity in Model.ImageAnalysis.Celebrities)
+                    {
+                        <div class="col-md-12">Logo of <b> @celebrity.Name</b> with confidence @Math.Round(celebrity.Confidence * 100, 3) %  at location(@celebrity.LocationX1, @celebrity.LocationX2, @celebrity.LocationY1, @celebrity.LocationY2)</div>
+                    }
+                }
+                else
+                {
+                    <span>No brand logo found in image </span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Landmarks</div>
+            <div class="panel-body">
+                @if (Model.ImageAnalysis.Landmarks.Count > 0)
+                {
+                    foreach (DJBlogs.ComputerVision.Model.Landmark landmark in Model.ImageAnalysis.Landmarks)
+                    {
+                        <div class="col-md-12">
+                            <b>@landmark.Name </b> with confidence @Math.Round(landmark.Confidence * 100, 3) %
+                        </div>
+                    }
+                }
+                else
+                {
+                    <span>No landmark found in image </span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Tags</div>
+            <div class="panel-body">
+                @if (Model.ImageAnalysis.Tags.Count > 0)
+                {
+                    foreach (DJBlogs.ComputerVision.Model.Tag tag in Model.ImageAnalysis.Tags)
+                    {
+                        <div class="col-md-12"><b> @tag.Name </b> with confidence @Math.Round(tag.Confidence * 100, 3) % </div>
+                    }
+                }
+                else
+                {
+                    <span>No tags found in image </span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Objects</div>
+            <div class="panel-body">
+                @if (Model.ImageAnalysis.Objects.Count > 0)
+                {
+                    foreach (DJBlogs.ComputerVision.Model.ImageObject obj in Model.ImageAnalysis.Objects)
+                    {
+                        <div class="col-md-12"><b> @obj.Name </b> with confidence @Math.Round(obj.Confidence * 100, 3) %  at location(@obj.LocationX1, @obj.LocationX2, @obj.LocationY1, @obj.LocationY2)</div>
+                    }
+                }
+                else
+                {
+                    <span>No object found in image </span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Faces</div>
+            <div class="panel-body">
+                @if (Model.ImageAnalysis.Faces.Count > 0)
+                {
+                    foreach (DJBlogs.ComputerVision.Model.Face face in Model.ImageAnalysis.Faces)
+                    {
+                        <div class="col-md-12"><b> @face.Gender </b> of age @face.Age at location ( @face.LocationX1, @face.LocationX2,@face.LocationY1, @face.LocationY2 )</div>
+                    }
+                }
+                else
+                {
+                    <span>No face found in image </span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">Content Detail</div>
+            <div class="panel-body">
+                @if (Model.ImageAnalysis.Adult != null)
+                {
+                    <div class="col-md-12">Has adult content @Model.ImageAnalysis.Adult.IsAdultContent with confidence @Math.Round(Model.ImageAnalysis.Adult.AdultScore * 100, 3) %</div>
+                    <div class="col-md-12">Has racy content @Model.ImageAnalysis.Adult.IsRacyContent with confidence @Math.Round(Model.ImageAnalysis.Adult.RacyScore * 100, 3) %</div>
+                }
+                else
+                {
+                    <span>No content found </span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Color</div>
+            <div class="panel-body">
+                @if (Model.ImageAnalysis.Color != null)
+                {
+                <div class="col-md-12"><b>Is black and white? </b> @(Model.ImageAnalysis.Color.IsBWImg ? "Yes" : "No")</div>
+                    <div class="col-md-12"><b>Accent color </b> #@(Model.ImageAnalysis.Color.AccentColor)</div>
+                    <div class="col-md-12"><b>Dominant background color </b> @(Model.ImageAnalysis.Color.DominantColorBackground)</div>
+                    <div class="col-md-12"><b>Dominant foreground color </b> @(Model.ImageAnalysis.Color.DominantColorForeground)</div>
+                    <div class="col-md-12"><b>Dominant colors </b> @(Model.ImageAnalysis.Color.DominantColors)</div>
+                }
+                else
+                {
+                    <span>No content found </span>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<br />
